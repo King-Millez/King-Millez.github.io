@@ -1,6 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import cbrUrl from "./models/editeded.obj?url";
 
 const clock = new THREE.Clock();
 
@@ -9,7 +10,7 @@ scene.background = new THREE.Color(0x141414);
 
 const loader = new OBJLoader();
 loader.load(
-  "models/editeded.obj",
+  cbrUrl,
   (object) => {
     object.position.set(20, 0, 20);
     object.scale.set(1.6, 1.6, 1.6);
