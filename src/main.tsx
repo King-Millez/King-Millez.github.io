@@ -1,7 +1,11 @@
-import "./style.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+//@ts-ignore
 import cbrUrl from "./models/editeded.obj?url";
+import Wipe from "./Wipe";
 
 const clock = new THREE.Clock();
 
@@ -9,20 +13,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x141414);
 
 const loader = new OBJLoader();
-loader.load(
-  cbrUrl,
-  (object) => {
-    object.position.set(20, 0, 20);
-    object.scale.set(1.6, 1.6, 1.6);
-    scene.add(object);
-  },
-  function (xhr) {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-  },
-  function () {
-    console.log("An error happened");
-  }
-);
+
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -85,3 +76,9 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <Wipe loader={loader} urls={[cbrUrl]} scene={scene} />
+  </React.StrictMode>
+);
